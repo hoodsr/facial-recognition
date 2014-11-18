@@ -1,10 +1,9 @@
 /****************************************************************
- * Header file for Homework 3 on indexing words.
+ * Header file for the fileparser.
  *
- * Author/copyright:  Duncan Buell
- * Modified and submitted by: Victor Reynolds
- * Date: 20 February 2014
- *
+ * Authors: Shannon Hood and Victor Reynolds
+ * Date: 17 November 2014
+ * 
 **/
 
 #ifndef FILEPARSER_H

@@ -1,5 +1,10 @@
 /****************************************************************
+* This is the file where the meat of the calculations is done.
+* Once the data is read from the files, the nearest pairs
+* are calculated here.
 *
+* Authors: Shannon Hood and Victor Reynolds
+* Date: 17 November 2014
 **/
 
 #include <map>
@@ -19,6 +24,8 @@ Interpreter::~Interpreter()
 {
 }
 
+// I realized after I made this that if we want our program to be fast, it might be
+// best to try to do the calculations as the actual files are read.
 map<int, double> Interpreter::nearestPairsFromIds(string dir, int templateId, string queryNum)
 {
   FileParser parser;

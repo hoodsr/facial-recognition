@@ -1,19 +1,12 @@
 /****************************************************************
- * The main file for our basic text-analysis program.
+ * The main file for our nearest pairs program. This program
+ * goes through the data directory looking for 47 sets of
+ * files. For each set, it compares the three Au01, AU12,
+ * and AU17 files to the template files to find the
+ * 10 nearest pairs.
  *
- * This program takes a stoplist file and an input file.
- * The stoplist should list words that are considered by the 
- * user to not have significance. This program then
- * counts the number of occurrences of each word in the input
- * file, noting the words that are listed in the stoplist file
- * as stopwords. It then writes to an output file an
- * alphabetized list of the words in the input file as well
- * as their number of occurrences, beginning with the
- * stopwords and following with the rest of the words.
- *
- * Author/copyright:  Duncan Buell. All rights reserved.
- * Modified and submitted by: Victor Reynolds 
- * Date: 20 February 2014
+ * Authors: Shannon Hood and Victor Reynolds
+ * Date: 17 November 2014
  *
 **/
 

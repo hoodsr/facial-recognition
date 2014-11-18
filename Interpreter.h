@@ -1,9 +1,8 @@
 /****************************************************************
- * Header file for Homework 3 on indexing words.
+ * Header file for the interpreter.
  *
- * Author/copyright:  Duncan Buell
- * Modified and submitted by: Victor Reynolds
- * Date: 20 February 2014
+ * Author: Shannon Hood and Victor Reynolds
+ * Date: 17 November 2014
  *
 **/
 
