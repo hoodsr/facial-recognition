@@ -35,13 +35,13 @@ map<int, double> Interpreter::nearestPairsFromIds(string dir, int templateId, st
   string templateName = dir + formattedId + "_template.dat";
   
   vector<double> query = parser.vectorFromFile(queryName);
-  vector< vector<double> > templ = parser.vectorListFromTemplate(templateName);
+  // vector< vector<double> > templ = parser.vectorListFromTemplate(templateName);
 
   cout << query.size() << endl;
-  cout << templ.size() << endl;
-  cout << templ[0].size() << endl;
+  //cout << templ.size() << endl;
+  //cout << templ[0].size() << endl;
 
-  map<int, double> results;
+  map<int, double> results = parser.findNearestPairs(query, templateName);
   // Do the algorithm here.
 
   return results;

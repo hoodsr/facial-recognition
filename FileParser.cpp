@@ -11,6 +11,7 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
+#include <map>
 
 #include "FileParser.h"
 
@@ -46,6 +47,12 @@ vector< vector<double> > FileParser::vectorListFromTemplate(const string& filena
   }
 
   return vals;
+}
+
+Map<int, double> FileParser::findNearestPairsFromTemplate(const vector<double>& query, string templateName)
+{
+  Map<int, double> result;
+  return result;
 }
 
 string FileParser::fileToString(const string& filename)
