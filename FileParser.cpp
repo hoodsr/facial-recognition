@@ -12,6 +12,7 @@
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <math.h>
 
 #include "FileParser.h"
 
@@ -49,9 +50,48 @@ vector< vector<double> > FileParser::vectorListFromTemplate(const string& filena
   return vals;
 }
 
-Map<int, double> FileParser::findNearestPairsFromTemplate(const vector<double>& query, string templateName)
+map<int, double> FileParser::findNearestPairsFromTemplate(const vector<double>& query, string templateName)
 {
-  Map<int, double> result;
+  map<int, double> result;
+  ifstream myFile(templateName.c_str());
+
+  string str;
+  double templateVal;
+  int templateIndex = 1; // I belive that in the examples the template rows are
+                         // 1 indexed rather than 0 indexed.
+
+  // We should name these differently,
+  // but these correspond to the parts of
+  // the equation on the powerpoint slide.
+  double topHalf = 0;
+  double bottomLeft = 0;
+  double bottomRight = 0;
+  double nearestPair = 0;
+  int nearestPairIndex = 0;
+  while (getline(myFile, str))
+  {
+    stringstream ss (str);
+    topHalf = 0;
+    bottomLeft = 0;
+    bottomRight = 0;
+    int templateRowIndex = 0;
+    while (ss >> templateVal)
+    {
+      topHalf += templateVal * query[templateRowIndex];
+      bottomLeft += query[templateRowIndex] * query[templateRowIndex];
+      bottomRight += templateVal * templateVal;
+      templateRowIndex++;
+    }
+    double s = topHalf / (sqrt (bottomLeft) * sqrt (bottomRight));
+    if (s > nearestPair || 0 == nearestPair) {
+      nearestPair = s;
+      nearestPairIndex = templateIndex;
+    }
+    templateIndex++;
+  }
+
+  cout << nearestPairIndex << endl;
+
   return result;
 }
 

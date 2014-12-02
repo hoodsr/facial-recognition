@@ -27,7 +27,8 @@ int main(int argc, char *argv[])
   {
     Interpreter worker;
     string directory(argv[1]);
-    for (int i = 1; i < idCount + 1; i++)
+    //for (int i = 1; i < idCount + 1; i++)
+    int i = 3;
     {
        map<int, double> results01 = worker.nearestPairsFromIds(directory, i, "01");
        map<int, double> results12 = worker.nearestPairsFromIds(directory, i, "12");
