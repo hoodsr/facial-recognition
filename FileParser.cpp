@@ -52,7 +52,9 @@ vector< vector<double> > FileParser::vectorListFromTemplate(const string& filena
 
 map<double, int> FileParser::findNearestPairsFromTemplate(const vector<double>& query, string templateName)
 {
-  map<double, int> result;
+  multimap<double, int> result;
+  map<double, int> result1;
+
   ifstream myFile(templateName.c_str());
 
   string str;
@@ -80,17 +82,20 @@ map<double, int> FileParser::findNearestPairsFromTemplate(const vector<double>& 
       bottomRight += templateVal * templateVal;
       templateRowIndex++;
     }
-    double s = 1- (topHalf / (sqrt (bottomLeft) * sqrt (bottomRight)));
-    result[s] = templateIndex;
+    // 1 - cosine similarity reverses order because higher values have greater similarity
+    double s = 1 - (topHalf / (sqrt (bottomLeft) * sqrt (bottomRight)));
+    result.insert(pair<double, int>(s, templateIndex)); 
     templateIndex++;
   }
+
   int count = 0;
-  for (map<double,int>::iterator it=result.begin(); count < 10 && it!=result.end(); ++it){
+  for (multimap<double, int>::iterator it=result.begin(); count < 10 && it != result.end(); ++it)
+  {
     cout << it->second << endl;
     count++;
   }
-
-  return result;
+  // Right now this is just returning an empty map
+  return result1;
 }
 
 string FileParser::fileToString(const string& filename)
