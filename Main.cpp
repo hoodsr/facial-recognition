@@ -9,12 +9,9 @@
  * Date: 17 November 2014
  *
 **/
-
-#include <map>
-
+ 
 #include "Main.h"
 #include "Interpreter.h"
-#include "FileParser.h"
 
 const int idCount = 47;
 
@@ -26,13 +23,15 @@ int main(int argc, char *argv[])
   if (argc == 2)
   {
     Interpreter worker;
+
     string directory(argv[1]);
     //for (int i = 1; i < idCount + 1; i++)
     int i = 3;
     {
-       map<double, int> results01 = worker.nearestPairsFromIds(directory, i, "01");
-       map<double, int> results12 = worker.nearestPairsFromIds(directory, i, "12");
-       map<double, int> resutls17 = worker.nearestPairsFromIds(directory, i, "17");
+      // worker.nearestPairsFromIds(directory, i); query name handled by interpreter
+      worker.nearestPairsFromIds(directory, i, "01");
+      worker.nearestPairsFromIds(directory, i, "12");
+      worker.nearestPairsFromIds(directory, i, "17");
     }
   }
   else
