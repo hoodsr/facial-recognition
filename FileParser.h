@@ -18,7 +18,7 @@ public:
   ~FileParser();
   vector<double> vectorFromFile(const string& filename);
   vector< vector<double> > vectorListFromTemplate(const string& filename);
-  map<int, double> findNearestPairsFromTemplate(const vector<double>& query, string templateName);
+  map<double, int> findNearestPairsFromTemplate(const vector<double>& query, string templateName);
 private:
   string fileToString(const string& filename);
   vector<double> stringToDoubleVector(const string& str);

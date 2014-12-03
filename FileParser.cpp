@@ -50,9 +50,9 @@ vector< vector<double> > FileParser::vectorListFromTemplate(const string& filena
   return vals;
 }
 
-map<int, double> FileParser::findNearestPairsFromTemplate(const vector<double>& query, string templateName)
+map<double, int> FileParser::findNearestPairsFromTemplate(const vector<double>& query, string templateName)
 {
-  map<int, double> result;
+  map<double, int> result;
   ifstream myFile(templateName.c_str());
 
   string str;
@@ -66,8 +66,6 @@ map<int, double> FileParser::findNearestPairsFromTemplate(const vector<double>& 
   double topHalf = 0;
   double bottomLeft = 0;
   double bottomRight = 0;
-  double nearestPair = 0;
-  int nearestPairIndex = 0;
   while (getline(myFile, str))
   {
     stringstream ss (str);
@@ -82,15 +80,15 @@ map<int, double> FileParser::findNearestPairsFromTemplate(const vector<double>& 
       bottomRight += templateVal * templateVal;
       templateRowIndex++;
     }
-    double s = topHalf / (sqrt (bottomLeft) * sqrt (bottomRight));
-    if (s > nearestPair || 0 == nearestPair) {
-      nearestPair = s;
-      nearestPairIndex = templateIndex;
-    }
+    double s = 1- (topHalf / (sqrt (bottomLeft) * sqrt (bottomRight)));
+    result[s] = templateIndex;
     templateIndex++;
   }
-
-  cout << nearestPairIndex << endl;
+  int count = 0;
+  for (map<double,int>::iterator it=result.begin(); count < 10 && it!=result.end(); ++it){
+    cout << it->second << endl;
+    count++;
+  }
 
   return result;
 }

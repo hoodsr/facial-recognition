@@ -16,7 +16,7 @@ class Interpreter
 public:
   Interpreter();
   ~Interpreter();
-  map<int, double> nearestPairsFromIds(string dir, int templateId, string queryNum);
+  map<double, int> nearestPairsFromIds(string dir, int templateId, string queryNum);
 private:
   string formatId(int id); 
 };

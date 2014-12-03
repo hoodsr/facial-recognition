@@ -30,9 +30,9 @@ int main(int argc, char *argv[])
     //for (int i = 1; i < idCount + 1; i++)
     int i = 3;
     {
-       map<int, double> results01 = worker.nearestPairsFromIds(directory, i, "01");
-       map<int, double> results12 = worker.nearestPairsFromIds(directory, i, "12");
-       map<int, double> resutls17 = worker.nearestPairsFromIds(directory, i, "17");
+       map<double, int> results01 = worker.nearestPairsFromIds(directory, i, "01");
+       map<double, int> results12 = worker.nearestPairsFromIds(directory, i, "12");
+       map<double, int> resutls17 = worker.nearestPairsFromIds(directory, i, "17");
     }
   }
   else

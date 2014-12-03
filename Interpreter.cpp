@@ -26,7 +26,7 @@ Interpreter::~Interpreter()
 
 // I realized after I made this that if we want our program to be fast, it might be
 // best to try to do the calculations as the actual files are read.
-map<int, double> Interpreter::nearestPairsFromIds(string dir, int templateId, string queryNum)
+map<double, int> Interpreter::nearestPairsFromIds(string dir, int templateId, string queryNum)
 {
   FileParser parser;
   string formattedId = formatId(templateId);
@@ -41,7 +41,7 @@ map<int, double> Interpreter::nearestPairsFromIds(string dir, int templateId, st
   //cout << templ.size() << endl;
   //cout << templ[0].size() << endl;
 
-  map<int, double> results = parser.findNearestPairsFromTemplate(query, templateName);
+  map<double, int> results = parser.findNearestPairsFromTemplate(query, templateName);
   // Do the algorithm here.
 
   return results;
