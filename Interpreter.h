@@ -26,18 +26,22 @@ class Interpreter
 public:
   Interpreter();
   ~Interpreter();
-  void nearestPairsFromIds(string dir, int templateId, string queryNum);
-  void findNearestIndicesFromTemplate(const vector<double>& query, string templateName);
-  // vector<double> stringToDoubleVector(const string& str);
-  // string fileToString(const string& filename);
-  // vector<vector<double> > vectorListFromTemplate(const string& filename);
-  // vector<double> vectorFromFile(const string& filename)
+  void nearestPairsFromIds(string dir, int templateId);
+  void findCosineSim();
 
 
 private:
   string formatId(int id);
+  vector<double> stringToDoubleVector(const string& str);
+  string fileToString(const string& filename);
   vector<double> vectorFromFile(const string& filename); 
-  vector<vector<double> > templateToVector(const string& filename); 
+  vector<vector<double> > vectorListFromTemplate(const string& filename); 
+
+  vector<vector<double> > vectorTemplate;
+  vector<double> query01;
+  vector<double> query12;
+  vector<double> query17;
+  vector<string> queryNames;
 };
 
 #endif

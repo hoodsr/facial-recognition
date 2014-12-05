@@ -22,16 +22,14 @@ int main(int argc, char *argv[])
   //vector< vector<double> > testtwo = parser.vectorListFromTemplate("../data/001_template.dat");
   if (argc == 2)
   {
-    Interpreter worker;
 
     string directory(argv[1]);
-    //for (int i = 1; i < idCount + 1; i++)
-    int i = 3;
+    for (int i = 1; i < idCount + 1; i++)
+    //int i = 3;
     {
+      Interpreter worker;
       // worker.nearestPairsFromIds(directory, i); query name handled by interpreter
-      worker.nearestPairsFromIds(directory, i, "01");
-      worker.nearestPairsFromIds(directory, i, "12");
-      worker.nearestPairsFromIds(directory, i, "17");
+      worker.nearestPairsFromIds(directory, i);
     }
   }
   else
