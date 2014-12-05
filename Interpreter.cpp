@@ -56,6 +56,9 @@ void Interpreter::findCosineSim()
   multimap<double, int> result01;
   multimap<double, int> result12;
   multimap<double, int> result17;
+  ofstream outFile("output.txt", ios::app);
+
+
   double dotProduct01, dotProduct12, dotProduct17;
   double xSquared01, xSquared12, xSquared17;
   double ySquared;
@@ -85,32 +88,32 @@ void Interpreter::findCosineSim()
     result12.insert(pair<double, int>(cosSim12, i+1)); 
     result17.insert(pair<double, int>(cosSim17, i+1)); 
   }
-  cout << "\ntest01" << endl;
+  outFile << "\ntest01" << endl;
   int count = 0;
   for (multimap<double, int>::iterator it=result01.begin(); count < 10; ++it)
   {
-    cout << it->second << " ";
+    outFile << it->second << " ";
     count++;
   }
 
-  cout << "\ntest12" << endl;
+  outFile << "\ntest12" << endl;
   count = 0;
   for (multimap<double, int>::iterator it=result12.begin(); count < 10; ++it)
   {
-    cout << it->second << " ";
+    outFile << it->second << " ";
     count++;
   }
 
-  cout << "\ntest17" << endl;
+  outFile << "\ntest17" << endl;
   count = 0;
   for (multimap<double, int>::iterator it=result17.begin(); count < 10; ++it)
   {
-    cout << it->second << " ";
+    outFile << it->second << " ";
     count++;
   }
   // Right now this is just returning an empty map
   //return result1;
-  cout << endl;
+  outFile << endl;
 }
 
 string Interpreter::formatId(int id)
