@@ -1,16 +1,15 @@
-/****************************************************************
+/**
  * Header file for the main file.
  *
  * Authors: Shannon Hood and Victor Reynolds
  * Date: 17 November 2014
-**/
+ */
+ 
 #ifndef MAIN_H
 #define MAIN_H
 
 #include <string>
-#include <vector>
-#include <iostream>
-#include <map>
+#include <time.h>
 
 using namespace std;
 

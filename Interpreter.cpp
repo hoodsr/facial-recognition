@@ -1,13 +1,14 @@
-/****************************************************************
-* This is the file where the meat of the calculations is done.
-* Once the data is read from the files, the nearest pairs
-* are calculated here.
-*
-* Authors: Shannon Hood and Victor Reynolds
-* Date: 17 November 2014
-**/
+/**
+ * This is the file where the meat of the calculations is done.
+ * Once the data is read from the files, the nearest pairs
+ * are calculated here.
+ *
+ * Authors: Shannon Hood and Victor Reynolds
+ * Date: 04 December 2014
+ */
 
 #include "Interpreter.h"
+
 Interpreter::Interpreter()
 {
 }
@@ -16,48 +17,48 @@ Interpreter::~Interpreter()
 {
 }
 
-// I realized after I made this that if we want our program to be fast, it might be
-// best to try to do the calculations as the actual files are read.
-void Interpreter::nearestPairsFromIds(string dir, int templateId)
+/**
+ * Formats the names of the files and stores the template
+ * and query data into vectors. Calls the method findCosineSim, 
+ * where the calculations are performed.
+ *
+ * @param dir name of the directory
+ * @param templateId the template id
+ */
+void Interpreter::nearestNeighborsFromIds(string dir, int templateId)
 {
-  //FileParser parser;
+  // Format the template and query filenames.
   string formattedId = this->formatId(templateId);
   queryNames.push_back(dir  + formattedId + "_AU01_query.dat");
   queryNames.push_back(dir  + formattedId + "_AU12_query.dat");
   queryNames.push_back(dir  + formattedId + "_AU17_query.dat");
-
   string templateName = dir + formattedId + "_template.dat";
   
+  // Read in the template data.
   vectorTemplate = this->vectorListFromTemplate(templateName);
 
-  //vector<double> query = this->vectorFromFile(queryNames);
+  // Read in the queries.
   query01 = this->vectorFromFile(queryNames.at(0));
   query12 = this->vectorFromFile(queryNames.at(1));
   query17 = this->vectorFromFile(queryNames.at(2));
 
-  // Perform the calculations
+  // Perform the calculations.
   this->findCosineSim();
 }
 
-/*vector<string> Interpreter::templateFromFile(string templateName)
-{
-  vector<string> yValues;
-  ifstream myFile(templateName.c_str());
-  string str;
-  while (getline(myFile, str))
-  {
-    yValues.push_back(str);
-  }
-  return yValues;
-}
-*/
+/**
+ * Where the actual calculations are performed. This method computes the cosine
+ * similarity between the three queries and every line of the template. The 
+ * computed values are then stored in a multimap using the cosine similariy as
+ * the key and the index in the template as the value.
+ * The ten most similar indices for each of the three queries is then printed 
+ * to the console.
+ */
 void Interpreter::findCosineSim()
 {
   multimap<double, int> result01;
   multimap<double, int> result12;
   multimap<double, int> result17;
-  ofstream outFile("output.txt", ios::app);
-
 
   double dotProduct01, dotProduct12, dotProduct17;
   double xSquared01, xSquared12, xSquared17;
@@ -78,8 +79,8 @@ void Interpreter::findCosineSim()
 
       ySquared += vectorTemplate[i][j]*vectorTemplate[i][j];
     }
-    // 1 - cosine similarity reverses order because higher values have greater similarity
-    double vectorYLength = sqrt(ySquared); // Will be the same for all three queries
+    // 1 - cosine similarity reverses order because higher values have greater similarity.
+    double vectorYLength = sqrt(ySquared); // Will be the same for all three queries.
     double cosSim01 = 1 - (dotProduct01 / (sqrt(xSquared01) * vectorYLength));
     double cosSim12 = 1 - (dotProduct12 / (sqrt(xSquared12) * vectorYLength));
     double cosSim17 = 1 - (dotProduct17 / (sqrt(xSquared17) * vectorYLength));
@@ -88,34 +89,44 @@ void Interpreter::findCosineSim()
     result12.insert(pair<double, int>(cosSim12, i+1)); 
     result17.insert(pair<double, int>(cosSim17, i+1)); 
   }
-  outFile << "\ntest01" << endl;
+
+  // Print out results for first query.
+  cout << "\n" << queryNames[0] << ": ";
   int count = 0;
-  for (multimap<double, int>::iterator it=result01.begin(); count < 10; ++it)
+  for(multimap<double, int>::iterator it=result01.begin(); count < 10; ++it)
   {
-    outFile << it->second << " ";
+    cout << it->second << " ";
     count++;
   }
 
-  outFile << "\ntest12" << endl;
+  // Print out results for second query.
+  cout << "\n" << queryNames[1] << ": ";
   count = 0;
-  for (multimap<double, int>::iterator it=result12.begin(); count < 10; ++it)
+  for(multimap<double, int>::iterator it=result12.begin(); count < 10; ++it)
   {
-    outFile << it->second << " ";
+    cout << it->second << " ";
     count++;
   }
 
-  outFile << "\ntest17" << endl;
+  // Print out results for third query.
+  cout << "\n" << queryNames[2] << ": ";
   count = 0;
-  for (multimap<double, int>::iterator it=result17.begin(); count < 10; ++it)
+  for(multimap<double, int>::iterator it=result17.begin(); count < 10; ++it)
   {
-    outFile << it->second << " ";
+    cout << it->second << " ";
     count++;
   }
-  // Right now this is just returning an empty map
-  //return result1;
-  outFile << endl;
+
+  cout << endl;
 }
 
+/**
+ * Formats the id number of the name of the file 
+ * byadding leading zeros.
+ *
+ * @param id id of file
+ * @return formatted id
+ */
 string Interpreter::formatId(int id)
 {
   string formatted = "";
@@ -130,31 +141,36 @@ string Interpreter::formatId(int id)
 
   stringstream s;
   s << formatted << id;
-
   return s.str();
 }
 
-/*vector<double> Interpreter::vectorFromFile(const string& filename)
+/**
+ * Reads the content of a query file into the program as
+ * a vector of doubles.
+ *
+ * @param fileName name of file
+ * @return contents of query file
+ */
+vector<double> Interpreter::vectorFromFile(const string& fileName)
 {
-  ifstream is(filename.c_str());
+  ifstream is(fileName.c_str());
   istream_iterator<double> start(is), end;
   vector<double> numbers(start, end);  
   return numbers;
-}*/
-
-vector<double> Interpreter::vectorFromFile(const string& filename)
-{
-  string contents = fileToString(filename);
-  return stringToDoubleVector(contents);
 }
-/*** This command is used on the ***_template.dat files because
+
+/** 
+ * This command is used on the ***_template.dat files because
  * each line of the template file corresponds to a vector to be compared
  * to the query files.
-*/
-vector<vector<double> > Interpreter::vectorListFromTemplate(const string& filename)
+ * 
+ * @param fileName the name of the file
+ * @return contents of template file
+ */
+vector<vector<double> > Interpreter::vectorListFromTemplate(const string& fileName)
 {
-  vector< vector<double> > vals;
-  ifstream myFile(filename.c_str());
+  vector<vector<double> > vals;
+  ifstream myFile(fileName.c_str());
   string str;
   while (getline(myFile, str))
   {
@@ -164,45 +180,24 @@ vector<vector<double> > Interpreter::vectorListFromTemplate(const string& filena
   return vals;
 }
 
-
+/** 
+ * Parses a given string into a vector of doubles. This is used in reading
+ * in both the template and query files.
+ * 
+ * @param string the string to be parsed
+ * @return numbers 
+ */
 vector<double> Interpreter::stringToDoubleVector(const string& str)
 {
   vector<double> numbers;
   stringstream ss (str);
 
   double val;
-  while (ss >> val) {
+  while (ss >> val)
+  {
     numbers.push_back(val);
   }
-    
+
   return numbers;
 }
 
-
-string Interpreter::fileToString(const string& filename)
-{
-  ifstream myFile(filename.c_str());
-  stringstream buffer;
-  buffer << myFile.rdbuf();
-  return buffer.str();
-}
-///////////////////////////////////////////
-
-/*for(int j = 0; j < 5632; j++)
-    {
-      double templateVal, query01, query12, query17;
-      query01SS >> query01;
-      query12SS >> query12;
-      query17SS >> query17;
-      templateSS >> templateVal;
-
-      dotProduct01 += templateVal*query01;
-      dotProduct12 += templateVal*query12;
-      dotProduct17 += templateVal*query17;
-
-      xSquared01 += query01*query01;
-      xSquared12 += query12*query12;
-      xSquared17 += query17*query17;
-
-      ySquared += templateVal*templateVal;}*/
-    

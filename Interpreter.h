@@ -1,17 +1,15 @@
-/****************************************************************
+/**
  * Header file for the interpreter.
  *
- * Author: Shannon Hood and Victor Reynolds
- * Date: 17 November 2014
- *
-**/
+ * Authors: Shannon Hood and Victor Reynolds
+ * Date: 04 December 2014
+ */
 
 #ifndef INTERPRETER_H
 #define INTERPRETER_H
 
 #include <map>
 #include <math.h>
-
 #include <vector>
 #include <string>
 #include <sstream>
@@ -26,17 +24,19 @@ class Interpreter
 public:
   Interpreter();
   ~Interpreter();
-  void nearestPairsFromIds(string dir, int templateId);
+
+  void nearestNeighborsFromIds(string dir, int templateId);
   void findCosineSim();
 
-
 private:
+  // Methods.
   string formatId(int id);
   vector<double> stringToDoubleVector(const string& str);
   string fileToString(const string& filename);
   vector<double> vectorFromFile(const string& filename); 
   vector<vector<double> > vectorListFromTemplate(const string& filename); 
 
+  // Variables.
   vector<vector<double> > vectorTemplate;
   vector<double> query01;
   vector<double> query12;

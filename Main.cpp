@@ -1,4 +1,4 @@
-/****************************************************************
+/**
  * The main file for our nearest pairs program. This program
  * goes through the data directory looking for 47 sets of
  * files. For each set, it compares the three Au01, AU12,
@@ -6,9 +6,8 @@
  * 10 nearest pairs.
  *
  * Authors: Shannon Hood and Victor Reynolds
- * Date: 17 November 2014
- *
-**/
+ * Date: 04 December 2014
+ */
  
 #include "Main.h"
 #include "Interpreter.h"
@@ -17,24 +16,24 @@ const int idCount = 47;
 
 int main(int argc, char *argv[])
 {
- // FileParser parser;
-//  vector<double> test = parser.vectorFromFile("../data/001_AU01_query.dat");
-  //vector< vector<double> > testtwo = parser.vectorListFromTemplate("../data/001_template.dat");
+  clock_t t = clock();
   if (argc == 2)
   {
-
+    // Get the directory from the command line.
     string directory(argv[1]);
     for (int i = 1; i < idCount + 1; i++)
-    //int i = 3;
     {
+      // Find the nearest vectors from each template.
       Interpreter worker;
-      // worker.nearestPairsFromIds(directory, i); query name handled by interpreter
-      worker.nearestPairsFromIds(directory, i);
+      worker.nearestNeighborsFromIds(directory, i);
     }
+    // Print the run time.
+    cout << "\nRun time:  " << ((float)clock()-t)/CLOCKS_PER_SEC << " s" << endl;
   }
   else
   {
     cout << "Usage: findNearestPairs [datadirectory]" << endl;
   }
+
   return 0;
 }

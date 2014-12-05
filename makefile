@@ -15,5 +15,7 @@ Interpreter.o: Interpreter.h Interpreter.cpp
 
 clean:
 	rm findNearestPairs
+	rm Main.o
+	rm Interpreter.o
 	clean
 
