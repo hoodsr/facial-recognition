@@ -1,7 +1,7 @@
 Shannon Hood
 Victor Reynolds
 
-CSCE 350 Coding Assignment
+A C++ program that computes a facial recognition algorithm.
 
 Usage:
 findNearestPairs [data_directory]
